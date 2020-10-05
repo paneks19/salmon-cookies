@@ -64,7 +64,7 @@ function hourSales(minCustomers, maxCustomers){ //generating a random number of 
  function loopCalculator(object){ //loop through each hour of the 14 hour work day to calculate random sales for each hour
    for (var i=0; i<14; i++){
 
-    var randomSale = hourSales(object.minCustomers, object.maxCustomers)
+    var randomSale = Math.floor(hourSales(object.minCustomers, object.maxCustomers));
 
     object.customersPerHour.push(randomSale); //calculates the random visits at each hour and appends to end of customersPerHour array
 
