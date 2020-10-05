@@ -15,9 +15,9 @@ var seattleObject = {
 
 
 var tokyoObject = {
-    minCustomers: 23,       //minimum number of customers per hour
-    maxCustomers: 65,       //maximum number of customers per hour
-    avgCookie: 6.3,         //average cooke sales per hour
+    minCustomers: 3,       //minimum number of customers per hour
+    maxCustomers: 24,       //maximum number of customers per hour
+    avgCookie: 1.2,         //average cooke sales per hour
     
     customersPerHour: [], //array to store the number of customers per hour
     cookieSalesPerHour: [], //array to store the calculated number of cookies sold per hour
@@ -25,9 +25,9 @@ var tokyoObject = {
 }
 
 var dubaiObject = {
-    minCustomers: 23,       //minimum number of customers per hour
-    maxCustomers: 65,       //maximum number of customers per hour
-    avgCookie: 6.3,         //average cooke sales per hour
+    minCustomers: 11,       //minimum number of customers per hour
+    maxCustomers: 38,       //maximum number of customers per hour
+    avgCookie: 3.7,         //average cooke sales per hour
     
     customersPerHour: [], //array to store the number of customers per hour
     cookieSalesPerHour: [], //array to store the calculated number of cookies sold per hour
@@ -35,9 +35,9 @@ var dubaiObject = {
 }
 
 var parisObject = {
-    minCustomers: 23,       //minimum number of customers per hour
-    maxCustomers: 65,       //maximum number of customers per hour
-    avgCookie: 6.3,         //average cooke sales per hour
+    minCustomers: 20,       //minimum number of customers per hour
+    maxCustomers: 38,       //maximum number of customers per hour
+    avgCookie: 2.3,         //average cooke sales per hour
     
     customersPerHour: [], //array to store the number of customers per hour
     cookieSalesPerHour: [], //array to store the calculated number of cookies sold per hour
@@ -45,9 +45,9 @@ var parisObject = {
 }
 
 var limaObject = {
-    minCustomers: 23,       //minimum number of customers per hour
-    maxCustomers: 65,       //maximum number of customers per hour
-    avgCookie: 6.3,         //average cooke sales per hour
+    minCustomers: 2,       //minimum number of customers per hour
+    maxCustomers: 16,       //maximum number of customers per hour
+    avgCookie: 4.6,         //average cooke sales per hour
     
     customersPerHour: [], //array to store the number of customers per hour
     cookieSalesPerHour: [], //array to store the calculated number of cookies sold per hour
@@ -66,15 +66,22 @@ function hourSales(minCustomers, maxCustomers){ //generating a random number of 
 
     var randomSale = Math.floor(hourSales(object.minCustomers, object.maxCustomers));
 
-    object.customersPerHour.push(randomSale); //calculates the random visits at each hour and appends to end of customersPerHour array
+    object.customersPerHour.push(Math.floor(randomSale)); //calculates the random visits at each hour and appends to end of customersPerHour array
 
-     object.cookieSalesPerHour.push(object.avgCookie * randomSale); //multiplies avgCookie sales per 
+    object.cookieSalesPerHour.push(Math.floor(object.avgCookie * randomSale)); //multiplies avgCookie sales per 
 
-     console.log('customer per hour ', object.customersPerHour, 'cookieSalesPerHour ', object.cookieSalesPerHour); //print variable values to check
+    console.log('customer per hour ', object.customersPerHour, 'cookieSalesPerHour ', object.cookieSalesPerHour); //print variable values to check
     }
     return object; //returns function data for use elsewhere
 
 }
 
 loopCalculator(seattleObject);
-// seattleObject.hourlyCalculator(seattleObject.minCustomers, seattleObject.maxCustomers);
+
+loopCalculator(tokyoObject);
+
+loopCalculator(dubaiObject);
+
+loopCalculator(parisObject);
+
+loopCalculator(limaObject);
