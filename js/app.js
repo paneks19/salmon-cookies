@@ -127,6 +127,8 @@ function printSales(){                                                          
         var cityName = cityArray[i].objectId;
 
         var cityObject = cityArray[i];
+
+        var runningCount = 0;       //create a counter to add all hourly sales
     
         for (var j=0; j<14; j++) {
             
@@ -135,9 +137,9 @@ function printSales(){                                                          
             var objectLi = document.getElementById(cityName);
     
             var cookieSalesPerHourElement = document.createElement('li');
-
+            
             if (hour<12){
-
+                
                 cookieSalesPerHourElement.textContent = `${hour}am: ${cityObject.cookieSalesPerHour[j]} cookies`;
                 
             } else if (hour>12){
@@ -147,16 +149,28 @@ function printSales(){                                                          
             } else {
                 
                 cookieSalesPerHourElement.textContent = `${hour}pm: ${cityObject.cookieSalesPerHour[j]} cookies`;
-            
+                
             }
-
-            console.log(cityObject);
-    
-            console.log(cityName);
+            
+            runningCount = runningCount + cityObject.cookieSalesPerHour[j];
+            
+            // console.log('cityObject sales per hour', cityObject.cookieSalesPerHour[j]);
+            
+            // console.log(runningCount);
+            
+            // console.log(cityObject);
+            
+            // console.log(cityName);
             
             objectLi.append(cookieSalesPerHourElement);
             
         }
+        
+        //append total of runningCount here
+        var cookieSalesTotalElement = document.createElement('li');
+        cookieSalesTotalElement.textContent = `Total: ${runningCount} cookies`;
+        objectLi.append(cookieSalesTotalElement);
+        
     }
 
 }
