@@ -339,7 +339,7 @@ function generateTableFooter(){
   for (var i=0; i<hours.length-1; i++){
     var td3Element = document.createElement('td'); //create next tfooter element
     if(i<hours.length - 2){
-      td3Element.textContent = 'test'; //add content, needs total for all stores each hour
+      td3Element.textContent = 'hourtotal'; //add content, needs total for all stores each hour
     } else {
       td3Element.textContent = 'grandtotal'; //add content, needs total for all stores all days
     }
