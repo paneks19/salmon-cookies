@@ -8,6 +8,7 @@ I build an app with a direct and powerful purpose. It does all of the things tha
 
 ### Links and Resources
 
+Much collaboration with and many thanks to Tina, Andrew, Mariko, and Nathan and TA's: Skyler, Chance, Bade, and Bri.
 * 
 
 ### Reflections and Comments

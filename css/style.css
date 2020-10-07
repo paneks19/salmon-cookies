@@ -5,3 +5,35 @@ section {
     padding: 5px;
 }
 
+h2 {
+    text-align: center;
+    padding: 5px;
+}
+
+/* tbody {
+    margin-left: 10%;
+    margin-right: 10%;
+    padding-left: 25%; 
+}*/
+
+th {
+    text-emphasis: bold;
+    padding: 5px;
+    /* margin-left: 10%;
+    margin-right: 10%; */
+    border: solid black 1px;
+}
+
+tr {
+    border: solid black 1px;
+}
+
+td{
+    border: solid black 1px;
+    text-align: center;
+}
+
+tf {
+    border: solid black 1px;
+    text-emphasis: bold;
+}
