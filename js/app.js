@@ -187,67 +187,81 @@
 
 //global variables
 
-//var cityList = ['seattle', 'tokyo', 'dubai', 'paris', 'lima'];
+var cityRowHeader = ['Seattle', 'Tokyo', 'Dubai', 'Paris', 'Lima', 'Total'];
 var allCities = [];
-var hours = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm'];
+
+var hours = ['','6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm','Total'];
+
 
 //constructor function
+
+City.allCities=[];
 
 function City (name, minimumCustomersPerHour, maximumCustomersPerHour, averageCookiesPerCustomer){
   this.name = name;
   this.minimumCustomersPerHour = minimumCustomersPerHour;
   this.maximumCustomersPerHour = maximumCustomersPerHour;
   this.averageCookiesPerCustomer = averageCookiesPerCustomer;
-
+  
   this.totalCookiesSoldDay = 0;
-
+  
   this.customersPerHourArray = [];
   this.cookieSalesPerHourArray = [];
-
-  allCities.push(this);
-
+  
+  City.allCities.push(this);
+  
 }
 
 //prototypes
 
+//generate random number
 City.prototype.generateRandomNumber = function (){
-
-  for (var i=0; i<hours.length; i++){
+  
+  for (var i=0; i<hours.length-2; i++){
     var randomNumber = Math.floor(Math.random() * (this.maximumCustomersPerHour - this.minimumCustomersPerHour + 1) + this.minimumCustomersPerHour);
-
+    
     this.customersPerHourArray.push(randomNumber);
   }
 };
 
+//generate cookies per hour
 City.prototype.generateCookieSalesPerHour = function (){
-
+  
   var cookieSalesThisHour = 0;
-
+  
   for (var i=0; i<this.customersPerHourArray.length; i++){
     cookieSalesThisHour = Math.ceil(this.customersPerHourArray[i] * this.averageCookiesPerCustomer);
-
-    this.totalCookiesSoldDay += cookieSalesThisHour;
-
+    
     this.cookieSalesPerHourArray.push(cookieSalesThisHour);
   }
 };
 
-City.prototype.renderRow = function (){
+//generate sales per day
+City.prototype.salesPerDay = function(){
+  
+  for (var i=0; i<hours.length-2; i++);
+  
+  this.totalCookiesSoldDay += this.generateCookieSalesPerHour();
+  
+};
 
+//build table and render data
+City.prototype.renderRow = function (){
+  
 };
 
 
 //instances
 
-var seattle = new City('seattle', 23, 65, 6.3);
+var seattle = new City('Seattle', 23, 65, 6.3);
 
-var tokyo = new City('tokyo', 3 , 24, 1.2);
+var tokyo = new City('Tokyo', 3 , 24, 1.2);
 
-var dubai = new City('dubai', 11, 38, 2.3);
+var dubai = new City('Dubai', 11, 38, 2.3);
 
-var paris = new City('paris', 20, 38, 2.3);
+var paris = new City('Paris', 20, 38, 2.3);
 
-var lima = new City('lima', 2, 16, 4.6);
+var lima = new City('Lima', 2, 16, 4.6);
 
 
 //executables
@@ -267,11 +281,50 @@ paris.generateCookieSalesPerHour();
 lima.generateRandomNumber();
 lima.generateCookieSalesPerHour();
 
+//create table header
+var parentElementHead=document.getElementById('thead');
+var parentElementBody=document.getElementById('tbody');
+var parentElementFoot=document.getElementById('tfoot');
+
+function generateTableHeader(){
+  for (var i=0; i<hours.length; i++){
+    var thElement = document.createElement('th');
+    thElement.textContent = hours[i];
+    parentElementHead.appendChild(thElement);
+  }
+}
+
+generateTableHeader();
+
+//render table data
+
+City.prototype.renderData = function (){
+  this.salesPerDay(); //calls salesPerDay
+  var tr2Element = document.createElement('tr'); //creates a tr2Element
+  parentElementBody.appendChild(tr2Element); //appends to parent
+  var tdElement = document.createElement('td'); //creates a tdElement
+  tdElement.textContent = this.name; //
+  tr2Element.appendChild(tdElement);
+};
+
+function printSales(){
+  for(var i=0; i<hours.length; i++){
+    City.allCities[i].renderData();
+    var td2Element = document.createElement('td'); //create a tdElement
+    td2Element.textContent = 'test';
+    parentElementBody.appendChild(td2Element);
+
+
+
+  }
+}
+
+printSales();
 
 
 //console.log tests
 
-console.log(allCities);
+console.log(City.allCities);
 
 console.log('seattle', seattle.cookieSalesPerHourArray);
 console.log('seattle', seattle.totalCookiesSoldDay);
