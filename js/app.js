@@ -354,43 +354,69 @@ City.prototype.generateCookieGrandTotals = function (){
 
 seattle.generateCookieGrandTotals();
 
-//generate total cookies for each hour across all stores
+//generate total cookies for each hour across all stores/////////////////////////////////////////////////////////////////
 
-City.prototype.generateAllCityHourTotal = function (){
-  //loop through hours
-  //access the property that holds the array of cookies each hour
-  //nest loop through array of cookies each hour
-  //add all cities 
+// City.prototype.generateAllCityHourTotal = function (){
+//   //loop through hours
+//   //access the property that holds the array of cookies each hour
+//   //nest loop through array of cookies each hour
+//   //add all cities
 
-  
-  for (var i=0; i<hours.length-2; i++){
-    
-    var totalCookiesThisHour = 0;
+//   for (var i=0; i<hours.length-2; i++){
 
-    for (var j=0; j<City.allCities.length; j++){
+//     var totalCookiesThisHour = 0;
 
-      totalCookiesThisHour += City.allCities[j].cookieSalesPerHourArray[i];
+//     for (var j=0; j<City.allCities.length; j++){
 
-      console.log('totalCookiesThisHour',i ,j , totalCookiesThisHour);
-      
+//       totalCookiesThisHour += City.allCities[j].cookieSalesPerHourArray[i];
 
+//       console.log('totalCookiesThisHour',i ,j , totalCookiesThisHour);
 
-    }
+//     }
 
-    console.log('i= ', i, 'totalCookiesThisHour', totalCookiesThisHour);
+//     console.log('i= ', i, 'totalCookiesThisHour', totalCookiesThisHour);
 
-  }
+//   }
 
+// };
 
-};
+// seattle.generateAllCityHourTotal();
 
-seattle.generateAllCityHourTotal();
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //generate total across all stores each our
 //loop through each array and internal array at position [1]
 
 
 //generate table footer
+
+///////////////////////////////////////////Part Below works!!! Do not delete until fully tested!!!!/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// function generateTableFooter(){
+
+//   //create bottom left cell with "Total"
+//   var tfElement = document.createElement('tf');
+//   tfElement.textContent = 'Totals';
+//   parentElementFoot.appendChild(tfElement);
+
+//   //create hourly totals
+//   for (var i=0; i<hours.length-1; i++){
+//     var td3Element = document.createElement('td'); //create next tfooter element
+//     if(i<hours.length - 2){
+//       td3Element.textContent = 'hour total'; //add content, needs total for all stores each hour
+//       // td3Element.textContent = 'hour total'; //add content, needs total for all stores each hour
+//     } else {
+//       td3Element.textContent = grandTotal; //add content, needs total for all stores all days
+//     }
+//     parentElementFoot.appendChild(td3Element);
+//   }
+
+// }
+
+// generateTableFooter();
+
+///////////////////////////////////////////////////////////Part above works!!! Do not delete until fully tested////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 function generateTableFooter(){
 
@@ -403,7 +429,21 @@ function generateTableFooter(){
   for (var i=0; i<hours.length-1; i++){
     var td3Element = document.createElement('td'); //create next tfooter element
     if(i<hours.length - 2){
-      td3Element.textContent = 'hour total'; //add content, needs total for all stores each hour
+
+      var totalCookiesThisHour = 0;
+
+      for (var j=0; j<City.allCities.length; j++){
+
+        totalCookiesThisHour += City.allCities[j].cookieSalesPerHourArray[i];
+
+        console.log('totalCookiesThisHour',i ,j , totalCookiesThisHour);
+
+      }
+
+      //console.log('i= ', i, 'totalCookiesThisHour', totalCookiesThisHour);
+
+      td3Element.textContent = totalCookiesThisHour; //add content, needs total for all stores each hour
+      // td3Element.textContent = 'hour total'; //add content, needs total for all stores each hour
     } else {
       td3Element.textContent = grandTotal; //add content, needs total for all stores all days
     }
@@ -413,10 +453,6 @@ function generateTableFooter(){
 }
 
 generateTableFooter();
-
-
-
-
 
 
 // if(City.allCities[i]){
