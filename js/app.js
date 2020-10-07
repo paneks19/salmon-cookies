@@ -197,13 +197,13 @@ var hours = ['','6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm'
 
 City.allCities=[];
 
-function City (name, minimumCustomersPerHour, maximumCustomersPerHour, averageCookiesPerCustomer){
+function City (name, minimumCustomersPerHour, maximumCustomersPerHour, averageCookiesPerCustomer, totalCookiesSoldDay){
   this.name = name;
   this.minimumCustomersPerHour = minimumCustomersPerHour;
   this.maximumCustomersPerHour = maximumCustomersPerHour;
   this.averageCookiesPerCustomer = averageCookiesPerCustomer;
 
-  this.totalCookiesSoldDay = 0;
+  this.totalCookiesSoldDay = totalCookiesSoldDay;
 
   this.customersPerHourArray = [];
   this.cookieSalesPerHourArray = [];
@@ -231,34 +231,37 @@ City.prototype.generateCookieSalesPerHour = function (){
 
   for (var i=0; i<this.customersPerHourArray.length; i++){
     cookieSalesThisHour = Math.ceil(this.customersPerHourArray[i] * this.averageCookiesPerCustomer);
+    this.totalCookiesSoldDay += cookieSalesThisHour;
 
     this.cookieSalesPerHourArray.push(cookieSalesThisHour);
-
   }
 };
 
 //generate sales per day
-City.prototype.salesPerDay = function(){
+//City.prototype.salesPerDay = function(){
 
-  for (var i=0; i<hours.length-2; i++);{
-    this.generateCookieSalesPerHour();
-    // console.log(cookiesEachHour);
-    this.totalCookiesSoldDay += this.cookieSalesPerHourArray[i];
+  // for (var i=0; i<hours.length-2; i++);{
+  //   // this.generateCookieSalesPerHour();
+  //   // console.log(cookiesEachHour);
+  //   var cookiesSoldThisHour = Math.ceil(this.customersPerHourArray[i] * this.averageCookiesPerCustomer)
+  //   this.totalCookiesSoldDay += cookiesSoldThisHour;
 
-  }
-};
+  // }
+// };
+
+//seattle.salesPerDay();
 
 //instances
 
-var seattle = new City('Seattle', 23, 65, 6.3);
+var seattle = new City('Seattle', 23, 65, 6.3, 0);
 
-var tokyo = new City('Tokyo', 3 , 24, 1.2);
+var tokyo = new City('Tokyo', 3 , 24, 1.2, 0);
 
-var dubai = new City('Dubai', 11, 38, 2.3);
+var dubai = new City('Dubai', 11, 38, 2.3, 0);
 
-var paris = new City('Paris', 20, 38, 2.3);
+var paris = new City('Paris', 20, 38, 2.3, 0);
 
-var lima = new City('Lima', 2, 16, 4.6);
+var lima = new City('Lima', 2, 16, 4.6, 0);
 
 
 //executables
@@ -304,12 +307,19 @@ City.prototype.renderData = function (){
   tdElement.textContent = this.name; //provides content (use: this.name)
   trElement.appendChild(tdElement); //appends to tr2Element
 
-  for(var i=0; i<hours.length-2; i++){
+  for(var i=0; i<hours.length-1; i++){
     var td2Element = document.createElement('td'); //create a tdElement
     //var cookiesData = this.cookieSalesThisHour[i];
     //console.log(cookiesData);
-    td2Element.textContent = this.cookieSalesPerHourArray[i]; //cookiesData or this.cookieSalesPerHourArray = [i] *needs to go here! ||| 'test' works!
+    if (i<hours.length-2){
+      td2Element.textContent = this.cookieSalesPerHourArray[i]; //cookiesData or this.cookieSalesPerHourArray = [i] *needs to go here! ||| 'test' works!
+    } else {
+      td2Element.textContent = this.totalCookiesSoldDay; //cookiesData or this.cookieSalesPerHourArray = [i] *needs to go here! ||| 'test' works!
+
+    }
     trElement.appendChild(td2Element);
+
+
 
 
   }
