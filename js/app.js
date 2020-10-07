@@ -298,18 +298,18 @@ generateTableHeader();
 City.prototype.renderData = function (){
   //console.log('Life!');
   // this.salesPerDay(); //calls salesPerDay
-  var tr2Element = document.createElement('tr'); //creates a tr2Element
-  parentElementBody.appendChild(tr2Element); //appends to parent
+  var trElement = document.createElement('tr'); //creates a tr2Element
+  parentElementBody.appendChild(trElement); //appends to parent
   var tdElement = document.createElement('td'); //creates a tdElement
-  tdElement.textContent = this.name; //provides content
-  tr2Element.appendChild(tdElement); //appends to tr2Element
+  tdElement.textContent = this.name; //provides content (use: this.name)
+  trElement.appendChild(tdElement); //appends to tr2Element
 
   for(var i=0; i<hours.length-2; i++){
-    var td3Element = document.createElement('td'); //create a tdElement
+    var td2Element = document.createElement('td'); //create a tdElement
     //var cookiesData = this.cookieSalesThisHour[i];
     //console.log(cookiesData);
-    td3Element.textContent = 'test'; //cookiesData or this.cookieSalesPerHourArray = [i] *needs to go here! ||| 'test' works!
-    tr2Element.appendChild(td3Element);
+    td2Element.textContent = this.cookieSalesPerHourArray[i]; //cookiesData or this.cookieSalesPerHourArray = [i] *needs to go here! ||| 'test' works!
+    trElement.appendChild(td2Element);
 
 
   }
