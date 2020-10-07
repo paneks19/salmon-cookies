@@ -315,13 +315,8 @@ City.prototype.renderData = function (){
       td2Element.textContent = this.cookieSalesPerHourArray[i]; //cookiesData or this.cookieSalesPerHourArray = [i] *needs to go here! ||| 'test' works!
     } else {
       td2Element.textContent = this.totalCookiesSoldDay; //cookiesData or this.cookieSalesPerHourArray = [i] *needs to go here! ||| 'test' works!
-
     }
     trElement.appendChild(td2Element);
-
-
-
-
   }
 };
 
@@ -335,9 +330,23 @@ lima.renderData();
 
 function generateTableFooter(){
 
+  //create bottom left cell with "Total"
   var tfElement = document.createElement('tf');
   tfElement.textContent = 'Totals';
   parentElementFoot.appendChild(tfElement);
+
+  //create hourly totals
+  for (var i=0; i<hours.length-1; i++){
+    var td3Element = document.createElement('td'); //create next tfooter element
+    if(i<hours.length - 2){
+      td3Element.textContent = 'test'; //add content, needs total for all stores each hour
+    } else {
+      td3Element.textContent = 'grandtotal'; //add content, needs total for all stores all days
+    }
+    parentElementFoot.appendChild(td3Element);
+  }
+
+
 
 }
 

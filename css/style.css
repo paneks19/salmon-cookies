@@ -32,3 +32,8 @@ td{
     border: solid black 1px;
     text-align: center;
 }
+
+tf {
+    border: solid black 1px;
+    text-emphasis: bold;
+}
