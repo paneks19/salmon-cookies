@@ -38,3 +38,9 @@ tf {
     border: solid black 1px;
     text-emphasis: bold;
 }
+
+input{
+    display: block;
+    
+
+}
