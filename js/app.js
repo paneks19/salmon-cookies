@@ -522,7 +522,12 @@ function handleSubmit(event){
   new City (cityName, cityMinimumCustomers, cityMaximumCustomers, cityAverageCookies, 0);
 
   console.log(City.allCities);
+
+  
+
 }
 
-
 formElement.addEventListener('submit', handleSubmit);
+
+// call necessary functions after submit
+
