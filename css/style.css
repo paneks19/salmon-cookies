@@ -41,6 +41,8 @@ tf {
 
 input{
     display: block;
-    
+}
 
+label {
+    display: inline-block;
 }
