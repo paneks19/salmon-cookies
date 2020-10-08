@@ -345,8 +345,8 @@ City.prototype.generateCookieGrandTotals = function (){
 
     grandTotal = grandTotal + City.allCities[i].totalCookiesSoldDay; //to access a property inside of an array of objects// to access an array index value inside a property of an array of objections use .property[#]
 
-    console.log('array at i', City.allCities[i]);
-    console.log('array at i 4', i, City.allCities[i].totalCookiesSoldDay);
+    //console.log('array at i', City.allCities[i]);
+   // console.log('array at i 4', i, City.allCities[i].totalCookiesSoldDay);
 
   }
 
@@ -436,7 +436,7 @@ function generateTableFooter(){
 
         totalCookiesThisHour += City.allCities[j].cookieSalesPerHourArray[i];
 
-        console.log('totalCookiesThisHour',i ,j , totalCookiesThisHour);
+        //console.log('totalCookiesThisHour',i ,j , totalCookiesThisHour);
 
       }
 
@@ -494,3 +494,40 @@ console.log(City.allCities);
 //     tableHeader.textContent = hours[i];
 //     tableRow.appendChild(tableHeader);
 //   }
+
+////////////////////////////////////Form and Event Listener Below/////////////////////////////////////////////
+
+//make new city instance from form entry, form will provide city name, min customers, max customers, and avg cookies
+// set up event listener for form submit
+// run callback function
+// collect info from form
+// run form info into constructor function
+// push object instances into an array
+
+var formElement = document.getElementById('newStoreForm');
+
+
+function handleSubmit(event){
+  event.preventDefault();
+
+  console.log(cityName, cityMinimumCustomers, cityMaximumCustomers, cityAverageCookies);
+
+  var cityName = event.target.cityNameInput.value;
+  var cityMinimumCustomers = parseInt(event.target.minimumCustomersInput.value);
+  var cityMaximumCustomers = parseInt(event.target.maximumCustomersInput.value);
+  var cityAverageCookies = parseInt(event.target.averageCookiesSoldInput.value);
+
+  console.log(cityName, cityMinimumCustomers, cityMaximumCustomers, cityAverageCookies);
+
+  new City (cityName, cityMinimumCustomers, cityMaximumCustomers, cityAverageCookies, 0);
+
+  console.log(City.allCities);
+
+  
+
+}
+
+formElement.addEventListener('submit', handleSubmit);
+
+// call necessary functions after submit
+
