@@ -44,6 +44,8 @@ City.prototype.generateRandomNumber = function (){
 //generate cookies per hour
 City.prototype.generateCookieSalesPerHour = function (){
 
+  this.generateRandomNumber();
+
   var cookieSalesThisHour = 0;
 
   for (var i=0; i<this.customersPerHourArray.length; i++){
@@ -57,6 +59,7 @@ City.prototype.generateCookieSalesPerHour = function (){
 //render table data
 
 City.prototype.renderData = function (){
+  this.generateCookieSalesPerHour();
   //console.log('Life!');
   // this.salesPerDay(); //calls salesPerDay
   var trElement = document.createElement('tr'); //creates a tr2Element
@@ -90,38 +93,13 @@ function generateTableHeader(){
   }
 }
 
-function handleSubmit(event){
-  event.preventDefault();
-
-  //console.log(cityName, cityMinimumCustomers, cityMaximumCustomers, cityAverageCookies);
-
-  var cityName = event.target.cityNameInput.value;
-  var cityMinimumCustomers = parseInt(event.target.minimumCustomersInput.value);
-  var cityMaximumCustomers = parseInt(event.target.maximumCustomersInput.value);
-  var cityAverageCookies = parseInt(event.target.averageCookiesSoldInput.value);
-
-  //console.log(cityName, cityMinimumCustomers, cityMaximumCustomers, cityAverageCookies);
-
-  var inputCity = new City (cityName, cityMinimumCustomers, cityMaximumCustomers, cityAverageCookies, 0);
-
-  inputCity.generateRandomNumber();
-  inputCity.generateCookieSalesPerHour();
-
-  // inputCity.generateCookieGrandTotals();
-
-  inputCity.renderData();
-
-  parentElementFoot.innerHTML = ''; //resets the table footer html - Thanks, Skyler!
-
-  generateTableFooter();
-}
-
 function generateTableFooter(){
 
+  createBottomLeftCellTotal();
   //create bottom left cell with "Total"
-  var tfElement = document.createElement('tf');
-  tfElement.textContent = 'Totals';
-  parentElementFoot.appendChild(tfElement);
+  // var tfElement = document.createElement('tf');
+  // tfElement.textContent = 'Totals';
+  // parentElementFoot.appendChild(tfElement);
 
   var grandTotal=0;
 
@@ -143,6 +121,36 @@ function generateTableFooter(){
   }
 }
 
+//create bottom left cell with row heading total
+
+function createBottomLeftCellTotal(){
+  var tfElement = document.createElement('tf');
+  tfElement.textContent = 'Totals';
+  parentElementFoot.appendChild(tfElement);
+}
+
+//event handler
+
+function handleSubmit(event){
+  event.preventDefault();
+
+  var cityName = event.target.cityNameInput.value;
+  var cityMinimumCustomers = parseInt(event.target.minimumCustomersInput.value);
+  var cityMaximumCustomers = parseInt(event.target.maximumCustomersInput.value);
+  var cityAverageCookies = parseInt(event.target.averageCookiesSoldInput.value);
+
+  var inputCity = new City (cityName, cityMinimumCustomers, cityMaximumCustomers, cityAverageCookies, 0);
+
+  inputCity.generateRandomNumber();
+  inputCity.generateCookieSalesPerHour();
+
+  inputCity.renderData();
+
+  parentElementFoot.innerHTML = ''; //resets the table footer html - Thanks, Skyler!
+
+  generateTableFooter();
+}
+
 //instances///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 var seattle = new City('Seattle', 23, 65, 6.3, 0);
@@ -157,24 +165,24 @@ var lima = new City('Lima', 2, 16, 4.6, 0);
 
 //executables//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-seattle.generateRandomNumber();
-seattle.generateCookieSalesPerHour();
+// seattle.generateRandomNumber();
+// seattle.generateCookieSalesPerHour();
 seattle.renderData();
 
-tokyo.generateRandomNumber();
-tokyo.generateCookieSalesPerHour();
+// tokyo.generateRandomNumber();
+// tokyo.generateCookieSalesPerHour();
 tokyo.renderData();
 
-dubai.generateRandomNumber();
-dubai.generateCookieSalesPerHour();
+// dubai.generateRandomNumber();
+// dubai.generateCookieSalesPerHour();
 dubai.renderData();
 
-paris.generateRandomNumber();
-paris.generateCookieSalesPerHour();
+// paris.generateRandomNumber();
+// paris.generateCookieSalesPerHour();
 paris.renderData();
 
-lima.generateRandomNumber();
-lima.generateCookieSalesPerHour();
+// lima.generateRandomNumber();
+// lima.generateCookieSalesPerHour();
 lima.renderData();
 
 generateTableHeader();
