@@ -144,6 +144,9 @@ function handleSubmit(event){
 }
 
 function masterRender(){
+
+  generateTableHeader();
+
   for (var i=0; i<City.allCities.length; i++){
     City.allCities[i].renderData();
     console.log(City.allCities[i]);
@@ -165,7 +168,7 @@ new City('Lima', 2, 16, 4.6);
 //executables//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 masterRender();
-generateTableHeader();
+
 generateTableFooter();
 
 formElement.addEventListener('submit', handleSubmit);
