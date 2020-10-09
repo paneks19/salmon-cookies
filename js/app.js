@@ -2,11 +2,7 @@
 
 //global variables
 
-var cityRowHeader = ['Seattle', 'Tokyo', 'Dubai', 'Paris', 'Lima', 'Total'];
-var allCities = [];
-
 var hours = ['','6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm','Total'];
-
 
 //constructor function
 
@@ -148,10 +144,6 @@ City.prototype.generateCookieGrandTotals = function (){
 
 seattle.generateCookieGrandTotals();
 
-
-///////////////////////////////////////////////////////////Part above works!!! Do not delete until fully tested////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
 function generateTableFooter(){
 
   //create bottom left cell with "Total"
@@ -188,9 +180,6 @@ function generateTableFooter(){
 
 generateTableFooter();
 
-
-console.log(City.allCities);
-
 ////////////////////////////////////Form and Event Listener Below/////////////////////////////////////////////
 
 //make new city instance from form entry, form will provide city name, min customers, max customers, and avg cookies
@@ -201,7 +190,6 @@ console.log(City.allCities);
 // push object instances into an array
 
 var formElement = document.getElementById('newStoreForm');
-
 
 function handleSubmit(event){
   event.preventDefault();
@@ -215,7 +203,18 @@ function handleSubmit(event){
 
   //console.log(cityName, cityMinimumCustomers, cityMaximumCustomers, cityAverageCookies);
 
-  new City (cityName, cityMinimumCustomers, cityMaximumCustomers, cityAverageCookies, 0);
+  var inputCity = new City (cityName, cityMinimumCustomers, cityMaximumCustomers, cityAverageCookies, 0);
+
+
+  inputCity.generateRandomNumber();
+  inputCity.generateCookieSalesPerHour();
+  inputCity.generateCookieGrandTotals();
+  inputCity.renderData();
+
+  parentElementFoot.innerHTML = ''; //resets the table footer html - Thanks, Skyler!
+
+  generateTableFooter();
+
 
   console.log(City.allCities);
 
@@ -223,5 +222,5 @@ function handleSubmit(event){
 
 formElement.addEventListener('submit', handleSubmit);
 
-// call necessary functions after submit
+
 

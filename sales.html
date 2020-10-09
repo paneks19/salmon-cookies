@@ -4,6 +4,7 @@
         <title>Salmon Cookies</title>
         <link href="css/reset.css" rel="stylesheet" />
         <link href="css/style.css" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
     </head>
     <body>
       <header>
@@ -14,30 +15,27 @@
           <section>
             <h2>Establish a New Franchise!</h2>
           </section>
-          <section>
+          <section id="section-form">
             <form id="newStoreForm">
               <fieldset>
                 <label>Enter new City Name: 
-                  <input type="text" name="cityNameInput"/>
+                  <input type="text" name="cityNameInput"required minlength="1"/>
                 </label>
                 <label>Enter the minimum number of customers expected per hour for this location:
-                  <input type="text" name="minimumCustomersInput"/>
+                  <input type="number" name="minimumCustomersInput" required minlength="1" min="0"/>
                 </label>
                 <label>Enter the maximum number of customers expected per hour for this location:
-                  <input type="text" name="maximumCustomersInput">/
+                  <input type="number" name="maximumCustomersInput" required minlength="1" min="0">
                 </label>
                 <label>Enter the average number of cookies sold per customer at this location:
-                  <input type="text" name="averageCookiesSoldInput"/>
+                  <input type="number" name="averageCookiesSoldInput" required minlength="1" min="0" step=".1"/>
                 </label>
-                <input type="submit">
-                <!-- <button>
-                  Submit
-                </button> -->
+                <input id="button" type="submit">
               </fieldset>
             </form>
           </section>
         </div>
-        <section>
+        <section id="section-table">
           <h2>Sales Per Hour Per City Table</h2>
           <table>
             <thead id="thead"></thead>
