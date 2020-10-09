@@ -1,10 +1,16 @@
 'use strict';
 
-//global variables
+//global variables//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 var hours = ['','6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm','Total'];
 
-//constructor function
+var parentElementHead=document.getElementById('thead');
+var parentElementBody=document.getElementById('tbody');
+var parentElementFoot=document.getElementById('tfoot');
+
+var formElement = document.getElementById('newStoreForm');
+
+//constructor function///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 City.allCities=[];
 
@@ -23,7 +29,7 @@ function City (name, minimumCustomersPerHour, maximumCustomersPerHour, averageCo
 
 }
 
-//prototypes
+//prototypes and helper functions/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //generate random number
 City.prototype.generateRandomNumber = function (){
@@ -47,50 +53,6 @@ City.prototype.generateCookieSalesPerHour = function (){
     this.cookieSalesPerHourArray.push(cookieSalesThisHour);
   }
 };
-
-//instances
-
-var seattle = new City('Seattle', 23, 65, 6.3, 0);
-
-var tokyo = new City('Tokyo', 3 , 24, 1.2, 0);
-
-var dubai = new City('Dubai', 11, 38, 2.3, 0);
-
-var paris = new City('Paris', 20, 38, 2.3, 0);
-
-var lima = new City('Lima', 2, 16, 4.6, 0);
-
-//executables
-
-seattle.generateRandomNumber();
-seattle.generateCookieSalesPerHour();
-
-tokyo.generateRandomNumber();
-tokyo.generateCookieSalesPerHour();
-
-dubai.generateRandomNumber();
-dubai.generateCookieSalesPerHour();
-
-paris.generateRandomNumber();
-paris.generateCookieSalesPerHour();
-
-lima.generateRandomNumber();
-lima.generateCookieSalesPerHour();
-
-//create table header
-var parentElementHead=document.getElementById('thead');
-var parentElementBody=document.getElementById('tbody');
-var parentElementFoot=document.getElementById('tfoot');
-
-function generateTableHeader(){
-  for (var i=0; i<hours.length; i++){
-    var thElement = document.createElement('th');
-    thElement.textContent = hours[i];
-    parentElementHead.appendChild(thElement);
-  }
-}
-
-generateTableHeader();
 
 //render table data
 
@@ -118,79 +80,15 @@ City.prototype.renderData = function (){
   }
 };
 
-// function sumDailyTotals(){
-//   var totalCookieSum = totalCookieSum + this.totalCookiesSoldDay[i]
-// }
+//create table header
 
-seattle.renderData();
-tokyo.renderData();
-dubai.renderData();
-paris.renderData();
-lima.renderData();
-
-//generate grand total across all stores
-
-// var grandTotal = 0;
-// //console.log (grandTotal);
-
-// City.prototype.generateCookieGrandTotals = function (){
-
-//   //loop through and add all daily totals position [6]
-//   // console.log('Alive');
-//   for (var i=0; i<5; i++){
-//     grandTotal = grandTotal + City.allCities[i].totalCookiesSoldDay; //to access a property inside of an array of objects// to access an array index value inside a property of an array of objections use .property[#]
-//   }
-// };
-
-// seattle.generateCookieGrandTotals();
-
-function generateTableFooter(){
-
-  //create bottom left cell with "Total"
-  var tfElement = document.createElement('tf');
-  tfElement.textContent = 'Totals';
-  parentElementFoot.appendChild(tfElement);
-
-  var grandTotal=0;
-
-  //create hourly totals
-  for (var i=0; i<hours.length-1; i++){
-    var td3Element = document.createElement('td'); //create next tfooter element
-    if(i<hours.length - 2){
-
-      var totalCookiesThisHour = 0;
-
-      for (var j=0; j<City.allCities.length; j++){
-
-        totalCookiesThisHour += City.allCities[j].cookieSalesPerHourArray[i];
-
-      }
-      grandTotal += totalCookiesThisHour;
-
-
-
-      td3Element.textContent = totalCookiesThisHour; //add content, needs total for all stores each hour
-      // td3Element.textContent = 'hour total'; //add content, needs total for all stores each hour
-    } else {
-      td3Element.textContent = grandTotal; //add content, needs total for all stores all days
-    }
-    parentElementFoot.appendChild(td3Element);
+function generateTableHeader(){
+  for (var i=0; i<hours.length; i++){
+    var thElement = document.createElement('th');
+    thElement.textContent = hours[i];
+    parentElementHead.appendChild(thElement);
   }
-
 }
-
-generateTableFooter();
-
-////////////////////////////////////Form and Event Listener Below/////////////////////////////////////////////
-
-//make new city instance from form entry, form will provide city name, min customers, max customers, and avg cookies
-// set up event listener for form submit
-// run callback function
-// collect info from form
-// run form info into constructor function
-// push object instances into an array
-
-var formElement = document.getElementById('newStoreForm');
 
 function handleSubmit(event){
   event.preventDefault();
@@ -206,22 +104,80 @@ function handleSubmit(event){
 
   var inputCity = new City (cityName, cityMinimumCustomers, cityMaximumCustomers, cityAverageCookies, 0);
 
-
   inputCity.generateRandomNumber();
   inputCity.generateCookieSalesPerHour();
- // inputCity.generateCookieGrandTotals();
+
+  // inputCity.generateCookieGrandTotals();
+
   inputCity.renderData();
 
   parentElementFoot.innerHTML = ''; //resets the table footer html - Thanks, Skyler!
 
   generateTableFooter();
-
-
-  console.log(City.allCities);
-
 }
 
+function generateTableFooter(){
+
+  //create bottom left cell with "Total"
+  var tfElement = document.createElement('tf');
+  tfElement.textContent = 'Totals';
+  parentElementFoot.appendChild(tfElement);
+
+  var grandTotal=0;
+
+  //create hourly totals
+  for (var i=0; i<hours.length-1; i++){
+    var td3Element = document.createElement('td'); //create next tfooter element
+    if(i<hours.length - 2){
+      var totalCookiesThisHour = 0;
+      for (var j=0; j<City.allCities.length; j++){
+        totalCookiesThisHour += City.allCities[j].cookieSalesPerHourArray[i];
+      }
+      grandTotal += totalCookiesThisHour;
+      td3Element.textContent = totalCookiesThisHour; //add content, needs total for all stores each hour
+      // td3Element.textContent = 'hour total'; //add content, needs total for all stores each hour
+    } else {
+      td3Element.textContent = grandTotal; //add content, needs total for all stores all days
+    }
+    parentElementFoot.appendChild(td3Element);
+  }
+}
+
+//instances///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+var seattle = new City('Seattle', 23, 65, 6.3, 0);
+
+var tokyo = new City('Tokyo', 3 , 24, 1.2, 0);
+
+var dubai = new City('Dubai', 11, 38, 2.3, 0);
+
+var paris = new City('Paris', 20, 38, 2.3, 0);
+
+var lima = new City('Lima', 2, 16, 4.6, 0);
+
+//executables//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+seattle.generateRandomNumber();
+seattle.generateCookieSalesPerHour();
+seattle.renderData();
+
+tokyo.generateRandomNumber();
+tokyo.generateCookieSalesPerHour();
+tokyo.renderData();
+
+dubai.generateRandomNumber();
+dubai.generateCookieSalesPerHour();
+dubai.renderData();
+
+paris.generateRandomNumber();
+paris.generateCookieSalesPerHour();
+paris.renderData();
+
+lima.generateRandomNumber();
+lima.generateCookieSalesPerHour();
+lima.renderData();
+
+generateTableHeader();
+generateTableFooter();
+
 formElement.addEventListener('submit', handleSubmit);
-
-
-
