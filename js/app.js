@@ -8,6 +8,8 @@ var parentElementHead=document.getElementById('thead');
 var parentElementBody=document.getElementById('tbody');
 var parentElementFoot=document.getElementById('tfoot');
 
+var inputCityCounter = false; // switch value for if statement in render function to indicate additional input city added
+
 var formElement = document.getElementById('newStoreForm');
 
 //constructor function///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -48,6 +50,8 @@ City.prototype.generateCookieSalesPerHour = function (){
 
   var cookieSalesThisHour = 0;
 
+  this.totalCookiesSoldDay = 0;
+
   for (var i=0; i<this.customersPerHourArray.length; i++){
     cookieSalesThisHour = Math.ceil(this.customersPerHourArray[i] * this.averageCookiesPerCustomer);
     this.totalCookiesSoldDay += cookieSalesThisHour;
@@ -57,6 +61,7 @@ City.prototype.generateCookieSalesPerHour = function (){
 };
 
 //render table data
+
 
 City.prototype.renderData = function (){
   this.generateCookieSalesPerHour();
@@ -72,6 +77,8 @@ City.prototype.renderData = function (){
 
     if (i<hours.length-2){
       td2Element.textContent = this.cookieSalesPerHourArray[i]; //cookiesData or this.cookieSalesPerHourArray = [i] *needs to go here! ||| 'test' works!
+    } else if (inputCityCounter === true){
+      td2Element.textContent = this.totalCookiesSoldDay/2; //cookiesData or this.cookieSalesPerHourArray = [i] *needs to go here! ||| 'test' works!
     } else {
       td2Element.textContent = this.totalCookiesSoldDay; //cookiesData or this.cookieSalesPerHourArray = [i] *needs to go here! ||| 'test' works!
     }
@@ -133,14 +140,16 @@ function handleSubmit(event){
 
   var inputCity = new City (cityName, cityMinimumCustomers, cityMaximumCustomers, cityAverageCookies, 0);
 
+  this.totalCookiesSoldDay = 0;
+
   inputCity.generateRandomNumber();
-  inputCity.generateCookieSalesPerHour();
 
   inputCity.renderData();
 
   parentElementFoot.innerHTML = ''; //resets the table footer html - Thanks, Skyler!
 
   generateTableFooter();
+
 }
 
 function masterRender(){
@@ -149,7 +158,6 @@ function masterRender(){
 
   for (var i=0; i<City.allCities.length; i++){
     City.allCities[i].renderData();
-    console.log(City.allCities[i]);
   }
 }
 
@@ -171,4 +179,4 @@ masterRender();
 
 generateTableFooter();
 
-formElement.addEventListener('submit', handleSubmit);
+formElement.addEventListener('submit', handleSubmit, inputCityCounter = true);
